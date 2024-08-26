@@ -1,5 +1,5 @@
 import path from "path";
-import {buildWebpack} from "./config/build/buildWebpack";
+import buildWebpack from "./config/build-config";
 
 type Env = {
     mode: "development" | "production" | "none";

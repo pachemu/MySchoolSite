@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "target": "es2016",
+    "module": "commonjs",
+    "esModuleInterop": true,     /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
+    "forceConsistentCasingInFileNames": true,
+    "composite": true,
+    "strict": true,
+    /* Enable error reporting for expressions and declarations with an implied 'any' type. */
+    "strictNullChecks": false,
+    /* When type checking, take into account 'null' and 'undefined'. */
+    "skipLibCheck": true,
+  }
+}

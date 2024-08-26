@@ -1,0 +1,43 @@
+/* styles.css */
+.modalOverlay {
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: margin-left 4s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.modalOverlay_open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  transition:  margin-left 5s ease;
+}
+
+.modalContent_open {
+ color: black;
+}

@@ -1,0 +1,71 @@
+.link {
+  color: black;
+}
+.modal {
+  position: relative;
+  min-height: 100%;
+  &__button {
+   &Img {
+     width: 31px;
+     height: 31px;
+   }
+  }
+
+  &__content {
+    animation: slideInFromLeft 0.2s ease-out forwards;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: white;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    column-gap: 40px;
+    &__menu {
+      display: flex;
+      gap: 40px;
+      flex-direction: column;
+      &_href {
+        width: 40px;
+        display: block;
+      }
+      &_item {
+        border-radius: 15px;
+        height: 30px ;
+        background-color: #B3B3B3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+      }
+    }
+
+  }
+}
+.footer {
+  position: absolute;
+  display: flex;
+  gap: 15px;
+  justify-content: space-evenly;
+  left: 0;
+  align-items: center ;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+}
+
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

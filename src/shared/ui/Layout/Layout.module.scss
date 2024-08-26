@@ -1,0 +1,29 @@
+.layout {
+  display: flex; /* Используем flexbox для размещения элементов */
+  flex-direction: column; /* Изменяем направление на колонку */
+  position: relative;
+  min-height: 100%;
+}
+
+.sidebar {
+  flex: 0 0 250px; /* Фиксированная ширина сайдбара */
+  background-color: #f4f4f4; /* Цвет фона сайдбара */
+}
+
+.main {
+  display: flex; /* Используем flexbox для центрирования контента */
+  flex: 1; /* Позволяем элементу растягиваться */
+  justify-content: center; /* Центрируем по горизонтали */
+  align-items: center; /* Центрируем по вертикали */
+  padding-bottom: 90px
+}
+
+.footer {
+  background-color: #f4f4f4; /* Цвет фона футера */
+  padding: 20px; /* Отступы для футера */
+  text-align: center; /* Выравнивание текста по центру */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
