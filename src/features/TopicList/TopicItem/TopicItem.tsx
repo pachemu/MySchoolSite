@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
 import * as styles from './Topicitem.module.scss'
 import DownOutlined from '@ant-design/icons'
-import {useOnClickOutside} from "../../../shared/modal/hooks/useClickOnOutside";
 import {Dropdown, Space} from 'antd';
+import {useOnClickOutside} from "../../../shared/modal/hooks/useClickOnOutside";
 
 interface SubTopic {
     url: string;
