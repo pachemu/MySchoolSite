@@ -17,39 +17,34 @@ export const AuthActionCreators = {
     setError: (error: string): SetErrorAction => ({
         type: AuthActionEnum.SET_ERROR, payload: error
     }),
-    login: (username: string, password: string) =>
-        async (dispatch:AppDispatch) => {
-                const response = await axios.get<IUser[]>('./users/users.json');
-                const mockUser = response.data.find(user =>
-                    user.username === username && user.password === password
-                );
+login: (username: string, password: string) =>
+    async (dispatch: AppDispatch) => {
+        try {
+            dispatch(AuthActionCreators.setIsLoading(true));
 
-                if (mockUser) {
-                    localStorage.setItem('auth', "true");
-                    localStorage.setItem('username', mockUser.username);
-                    dispatch(AuthActionCreators.setIsAuth(true));
-                    dispatch(AuthActionCreators.setUser(mockUser));
-                } else {
-                    dispatch(AuthActionCreators.setError("Некорректный логин или пароль"));
-                }
-                
-            } catch (error) {
-                dispatch(AuthActionCreators.setError("Ошибка при получении данных: " + error.message));
-            } finally {
-                dispatch(AuthActionCreators.setIsLoading(false));
+            // Фиксированные значения для проверки
+            const fixedUsername = 'Дэб';
+            const fixedPassword = 'Dab';
+
+            // Проверка на соответствие
+            if (username === fixedUsername && password === fixedPassword) {
+                localStorage.setItem('auth', "true");
+                localStorage.setItem('username', fixedUsername);
+                dispatch(AuthActionCreators.setIsAuth(true));
+                dispatch(AuthActionCreators.setUser({ username: fixedUsername })); // Добавляем только имя пользователя
+            } else {
+                dispatch(AuthActionCreators.setError("Некорректный логин или пароль"));
             }
-        }, 3000);
-        
-    } catch (e) {
-        dispatch(AuthActionCreators.setError("Произошла ошибка: " + e.message));
-        dispatch(AuthActionCreators.setIsLoading(false));
-    }
+        } catch (error) {
+            dispatch(AuthActionCreators.setError("Произошла ошибка: " + error.message));
+        } finally {
+            dispatch(AuthActionCreators.setIsLoading(false));
+        }
+    },
 
-};
-    logout: () => async(dispatch:AppDispatch) => {
-            localStorage.removeItem('auth')
-            localStorage.removeItem('username')
-            dispatch(AuthActionCreators.setUser({} as IUser));
-            dispatch(AuthActionCreators.setIsAuth(false));
-    }
+logout: () => async (dispatch: AppDispatch) => {
+    localStorage.removeItem('auth');
+    localStorage.removeItem('username');
+    dispatch(AuthActionCreators.setUser({} as IUser));
+    dispatch(AuthActionCreators.setIsAuth(false));
 }
