@@ -10,7 +10,8 @@
     "build.mobile": "webpack serve --env mode=development port=1234 --env platform=mobile",
     "build.dekstop": "webpack serve --env mode=development port=1234 --env platform=dekstop",
     "typecheck": "tsc",
-    "start": "webpack serve --env port=7777 mode=development api=http://localhost:3000/quizzes"
+    "start": "webpack serve --env port=7777 mode=development api=https://backend-for-schoolsite.vercel.app/quizzes",
+    "start.prod" : "webpack serve --env port=7777 mode=production api=https://backend-for-schoolsite.vercel.app/quizzes"
   },
   "keywords": [],
   "author": "",
