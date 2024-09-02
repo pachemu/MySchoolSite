@@ -1,5 +1,6 @@
 import React, {useRef} from 'react'
 import * as styles from './Game.module.scss'
+import {Button} from "antd";
 export const Game = () => {
     const embedRef = useRef(null); // Создаем реф для ссылки на контейнер с embed
 
@@ -24,7 +25,9 @@ export const Game = () => {
                     style={{width: '100%', height: '100%'}}
                 />
             </div>
-            <button onClick={toggleFullscreen}>Включить во весь экран</button>
+            <Button onClick={toggleFullscreen}>
+                Включить во весь экран
+            </Button>
         </div>
 )
 }

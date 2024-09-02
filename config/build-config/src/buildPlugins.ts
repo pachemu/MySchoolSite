@@ -8,7 +8,7 @@ import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import path from "path";
 import CopyPlugin from "copy-webpack-plugin";
 
-export function buildPlugins({mode, paths, analyzer, platform}: BuildOptions): Configuration['plugins'] {
+export function buildPlugins({mode, paths, analyzer, platform, api}: BuildOptions): Configuration['plugins'] {
     const isDev = mode === 'development';
     const isProd = mode === 'production';
 
@@ -17,6 +17,7 @@ export function buildPlugins({mode, paths, analyzer, platform}: BuildOptions): C
         new DefinePlugin({
             __PLATFORM__: JSON.stringify(platform),
             __ENV__: JSON.stringify(mode),
+            __URL__: JSON.stringify(api),
         }),
 
     ]
@@ -36,6 +37,7 @@ export function buildPlugins({mode, paths, analyzer, platform}: BuildOptions): C
         plugins.push(new CopyPlugin({
             patterns: [
                 {from: path.resolve(paths.public, 'locales'), to: path.resolve(paths.output, 'locales')},
+                {from: path.resolve(paths.public, 'users'), to: path.resolve(paths.output, 'users')}
             ],
         }),)
     }

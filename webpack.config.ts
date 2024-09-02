@@ -1,4 +1,6 @@
+// @ts-ignore
 import path from "path";
+
 import buildWebpack from "./config/build-config";
 
 type Env = {
@@ -6,6 +8,7 @@ type Env = {
     port: number;
     analyzer?: boolean;
     platform?: "dekstop" | "mobile";
+    api: string;
 };
 
 export default (env: Env) => {
@@ -23,5 +26,6 @@ export default (env: Env) => {
         port: env.port ?? 4400,
         analyzer: env.analyzer,
         platform: env.platform,
+        api: env.api
     });
 };

@@ -1,11 +1,10 @@
 // src/features/TopicList/TopicList.tsx
 import React from 'react';
 import TopicItem from "./TopicItem/TopicItem";
-import {Topics} from '../../entities/Topic/model'
 import * as styles from './TopicList.module.scss'
 
 interface TopicListProps {
-    topics: Topics[];
+    topics: any;
 }
 
 const TopicList: React.FC<TopicListProps> = ({topics}) => (

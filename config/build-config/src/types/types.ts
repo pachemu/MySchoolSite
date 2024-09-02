@@ -15,4 +15,5 @@ export interface BuildOptions {
     mode: BuildMode;
     platform?: string;
     analyzer?: boolean;
+    api: string
 }

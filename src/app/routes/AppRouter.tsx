@@ -1,45 +1,49 @@
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import React, {Suspense} from "react";
-import Conspects from "../../pages/conspects/LazyConspects";
-import {NavBar} from "../../features/user/ui/NavBar";
-import Examination from "../../pages/examination/LazyExamination";
-import {Layout} from "../../shared/ui/Layout/Layout";
-import Game from "../../pages/game/LazyGame";
-import {contactsData, navigationLinks} from "../../shared/const/navBar";
+import {BrowserRouter as Router, BrowserRouter, Route, Routes} from "react-router-dom";
+import React, {Suspense, useEffect} from "react";
+import {BaseLayout} from "../../shared/ui/Layout/BaseLayout";
+import {
+    navigationLinksTeacher,
+    navigationLinksUnlogined
+} from "../../features/user/const/navBar";
+import {teacherRoutes, unLoginedUsers} from "./index";
+import {useTypedSelector} from "../../features/user/model/useTypedSelector";
+import {useActions} from "../store/reducers/auth/hooks/useActions";
+import {IUser} from "../../entities/User/User";
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout sideBar={<NavBar navigationLinks={navigationLinks} contactsData={contactsData} />}/>,
-        children: [
-            {
-                path: "/conspects",
-                element: (
-                    <Suspense fallback="loading...">
-                        <Conspects/>
-                    </Suspense>
-                ),
-            },
-            {
-                path: "/examination",
-                element: (
-                    <Suspense fallback="loading...">
-                        <Examination/>
-                    </Suspense>
-                ),
-            },
-            {
-                path: "/game",
-                element: (
-                    <Suspense fallback="loading...">
-                        <Game/>
-                    </Suspense>
-                ),
-            },
-        ],
-    },
-]);
+function AppRouter() {
+    const { setUser, setIsAuth} = useActions()
+    useEffect(()=> {
+        if(localStorage.getItem('auth')) {
+            setUser({username: localStorage.getItem('username'|| '')} as IUser)
+            setIsAuth(true)
 
-export const AppRouter = () => {
-    return <RouterProvider router={router}/>
+    }},[])
+    const {auth} = useTypedSelector(state => state.authReducer)
+    return (
+        auth ?
+            <BrowserRouter>
+                <BaseLayout items={navigationLinksTeacher}>
+                    <Suspense fallback={'loading'}>
+                        <Routes>
+                            {teacherRoutes.map(route =>
+                                <Route key={route.path} path={route.path} element={route.component}/>)}
+                        </Routes>
+                    </Suspense>
+                </BaseLayout>
+            </BrowserRouter>
+            :
+
+            <Router>
+                <BaseLayout items={navigationLinksUnlogined}>
+                    <Suspense fallback="loading...">
+                        <Routes>
+                            {unLoginedUsers.map(route =>
+                                <Route key={route.path} path={route.path} element={route.component}/>)}
+                        </Routes>
+                    </Suspense>
+                </BaseLayout>
+            </Router>
+    );
 }
+
+export default AppRouter;

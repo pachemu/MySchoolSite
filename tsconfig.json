@@ -4,8 +4,6 @@
     "target": "es2016",
     "module": "commonjs",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "composite": true,
     "strict": true,
     "strictNullChecks": false,
     "skipLibCheck": true,
@@ -13,6 +11,7 @@
   },
   "include": [
     "src/**/*",
-    "src/**/*/*"
+    "src/**/*/*",
+    "global.d.ts"
   ]
 }

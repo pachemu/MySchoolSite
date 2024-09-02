@@ -1,6 +1,6 @@
-import Telegram from '../../features/user/assets/SocialData/TelegramICO.png'
-import VK from '../../features/user/assets/SocialData/VK.png'
-import Gmail from '../../features/user/assets/SocialData/Gmail.png'
+import Telegram from '../assets/SocialData/TelegramICO.png'
+import VK from '../assets/SocialData/VK.png'
+import Gmail from '../assets/SocialData/Gmail.png'
 
 export const navigationLinks = [
     {
@@ -13,13 +13,22 @@ export const navigationLinks = [
     },
     {
         name: "Тест",
-        link: 'examination',
+        link: '/quiz',
     },
-    {
-        name: "Мы",
-        link: '/nah',
-    }
 ]
+export const navigationLinksTeacher = navigationLinks.concat([
+    {
+        name: "Создать тест",
+        link: '/create/quiz',
+    }
+])
+
+export const navigationLinksUnlogined = navigationLinks.concat([
+    {
+        name: 'Логин',
+        link: '/login',
+    }
+])
 
 export const contactsData = [
     {
