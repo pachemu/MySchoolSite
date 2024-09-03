@@ -17,22 +17,22 @@ export const AuthActionCreators = {
     setError: (error: string): SetErrorAction => ({
         type: AuthActionEnum.SET_ERROR, payload: error
     }),
-    login : (username: string, password: string) =>
+    login: (username: string, password: string) =>
         async (dispatch: AppDispatch) => {
             try {
                 dispatch(AuthActionCreators.setIsLoading(true));
 
                 setTimeout(async () => {
-                    const response = await axios.post('https://backend-indol-beta.vercel.app/login', { username, password });
-
-                    if (response.data.success) {
+                    // Здесь добавляем проверку на клиентской стороне
+                    if (username === "Дэб" && password === "Dab") {
                         localStorage.setItem('auth', "true");
-                        localStorage.setItem('username', response.data.username);
+                        localStorage.setItem('username', username);
                         dispatch(AuthActionCreators.setIsAuth(true));
-                        dispatch(AuthActionCreators.setUser({ username: response.data.username }));
+                        dispatch(AuthActionCreators.setUser({ username }));
                     } else {
                         dispatch(AuthActionCreators.setError("Некорректный логин или пароль"));
                     }
+
                     dispatch(AuthActionCreators.setIsLoading(false));
                 }, 3000);
 
