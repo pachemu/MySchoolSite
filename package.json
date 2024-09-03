@@ -1,7 +1,7 @@
 {
   "name": "webpackconfiguration",
   "version": "1.0.0",
-  "proxy": "https://backend-7pdzdko66-debchiks-projects.vercel.app/quizzes",
+  "proxy": "https://my-school-site-kx19.vercel.app/",
   "main": "index.js",
   "scripts": {
     "build" : "webpack --env port=7777 mode=development api=https://backend-7pdzdko66-debchiks-projects.vercel.app/quizzes",
