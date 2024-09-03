@@ -5,7 +5,7 @@ import axios from "axios";
 import {mock} from "node:test";
 
 export const AuthActionCreators = {
-    setUser: (user: IUser): SetUserAction => ({
+    setUser: (user: any): SetUserAction => ({
         type: AuthActionEnum.SET_USER, payload: user
     }),
     setIsAuth: (auth: boolean): SetAuthAction => ({
@@ -17,34 +17,33 @@ export const AuthActionCreators = {
     setError: (error: string): SetErrorAction => ({
         type: AuthActionEnum.SET_ERROR, payload: error
     }),
-login: (username: string, password: string) =>
-    async (dispatch: AppDispatch) => {
-        try {
-            dispatch(AuthActionCreators.setIsLoading(true));
+    login : (username: string, password: string) =>
+        async (dispatch: AppDispatch) => {
+            try {
+                dispatch(AuthActionCreators.setIsLoading(true));
 
-            // Фиксированные значения для проверки
-            const fixedUsername = 'Дэб';
-            const fixedPassword = 'Dab';
+                setTimeout(async () => {
+                    const response = await axios.post('https://backend-indol-beta.vercel.app/login', { username, password });
 
-            // Проверка на соответствие
-            if (username === fixedUsername && password === fixedPassword) {
-                localStorage.setItem('auth', "true");
-                localStorage.setItem('username', fixedUsername);
-                dispatch(AuthActionCreators.setIsAuth(true));
-                dispatch(AuthActionCreators.setUser({ username: fixedUsername })); // Добавляем только имя пользователя
-            } else {
-                dispatch(AuthActionCreators.setError("Некорректный логин или пароль"));
+                    if (response.data.success) {
+                        localStorage.setItem('auth', "true");
+                        localStorage.setItem('username', response.data.username);
+                        dispatch(AuthActionCreators.setIsAuth(true));
+                        dispatch(AuthActionCreators.setUser({ username: response.data.username }));
+                    } else {
+                        dispatch(AuthActionCreators.setError("Некорректный логин или пароль"));
+                    }
+                    dispatch(AuthActionCreators.setIsLoading(false));
+                }, 3000);
+
+            } catch (e) {
+                dispatch(AuthActionCreators.setError('Произошла ошибка при аутентификации!'));
             }
-        } catch (error) {
-            dispatch(AuthActionCreators.setError("Произошла ошибка: " + error.message));
-        } finally {
-            dispatch(AuthActionCreators.setIsLoading(false));
-        }
-    },
-
-logout: () => async (dispatch: AppDispatch) => {
-    localStorage.removeItem('auth');
-    localStorage.removeItem('username');
-    dispatch(AuthActionCreators.setUser({} as IUser));
-    dispatch(AuthActionCreators.setIsAuth(false));
+        },
+    logout: () => async(dispatch:AppDispatch) => {
+            localStorage.removeItem('auth')
+            localStorage.removeItem('username')
+            dispatch(AuthActionCreators.setUser({} as IUser));
+            dispatch(AuthActionCreators.setIsAuth(false));
+    }
 }
