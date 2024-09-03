@@ -30,7 +30,7 @@ export const fetchQuizById = createAsyncThunk(
     'quiz/fetchQuizById',
     async (quizId: string, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`http://localhost:3000/quizzes/${quizId}`);
+            const response = await axios.get(`https://backend-2tsthsknn-debchiks-projects.vercel.app/quizzes/${quizId}`);
             let questions = response.data.questions;
 
             // Перемешиваем вопросы
