@@ -8,9 +8,11 @@ interface QuizState {
     error: string | null;
     answers: Record<string, string | string[]>;
     score: number;
+    name: string;
 }
 
 const initialState: QuizState = {
+    name: '',
     questions: [],
     currentQuestionIndex: 0,
     loading: false,
@@ -30,9 +32,9 @@ export const fetchQuizById = createAsyncThunk(
     'quiz/fetchQuizById',
     async (quizId: string, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`http://localhost:3000/quizzes/${quizId}`);
+            const response = await axios.get(`https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes/${quizId}`);
             let questions = response.data.questions;
-
+            let name = response.data.name
             // Перемешиваем вопросы
             shuffleArray(questions);
 
@@ -43,7 +45,7 @@ export const fetchQuizById = createAsyncThunk(
                 }
             });
 
-            return questions; // Возвращаем перемешанные вопросы
+            return {questions, name}; // Возвращаем перемешанные вопросы
         } catch (error: any) {
             return rejectWithValue(error.response.data);
         }
@@ -81,7 +83,8 @@ const quizSlice = createSlice({
             })
             .addCase(fetchQuizById.fulfilled, (state, action) => {
                 state.loading = false;
-                state.questions = action.payload;
+                state.questions = action.payload.questions;
+                state.name = action.payload.name; // Сохраняем имя квиза
             })
             .addCase(fetchQuizById.rejected, (state, action) => {
                 state.loading = false;

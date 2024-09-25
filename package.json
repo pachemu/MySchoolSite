@@ -1,17 +1,17 @@
 {
   "name": "webpackconfiguration",
   "version": "1.0.0",
-  "proxy": "http://localhost:3000",
   "main": "index.js",
   "scripts": {
+    "build" : "webpack --env port=7777 mode=development api=https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes",
     "build.dev": "webpack  --env mode=development port=1234",
     "build.prod": "webpack --env mode=production port=1111",
     "check": "webpack serve --env mode=production analyzer=True",
     "build.mobile": "webpack serve --env mode=development port=1234 --env platform=mobile",
     "build.dekstop": "webpack serve --env mode=development port=1234 --env platform=dekstop",
     "typecheck": "tsc",
-    "start": "webpack serve --env port=7777 mode=development api=https://backend-for-schoolsite.vercel.app/quizzes",
-    "start.prod" : "webpack serve --env port=7777 mode=production api=https://backend-for-schoolsite.vercel.app/quizzes"
+    "start": "webpack serve --env port=7777 mode=development api=https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes",
+    "start.prod" : "webpack serve --env port=7777 mode=production api=https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes"
   },
   "keywords": [],
   "author": "",

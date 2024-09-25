@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Progress, Button, List, Card, Typography, Row, Col } from 'antd';
 import { RootState } from '../../../app/store/StoreProvider';
 import { startQuiz } from '../../../app/store/reducers/quiz/quizSlice';
+import {getQuizzes} from "../../quiz/api";
+import {Link} from "react-router-dom";
 
 const { Title, Text } = Typography;
 
 const ResultsComponent = () => {
     const dispatch = useDispatch();
-    const { questions, answers } = useSelector((state: RootState) => state.quiz);
-
+    const { questions, answers, name} = useSelector((state: RootState) => state.quiz);
     const totalQuestions = questions.length;
-
     const correctAnswers = questions.filter((question, index) => {
         const correctAnswer = Array.isArray(question.correctAnswer)
             ? question.correctAnswer.join(', ')
@@ -42,6 +42,11 @@ const ResultsComponent = () => {
     const handleRestartQuiz = () => {
         dispatch(startQuiz());
     };
+    const wrapperLink = `mailto:ooshkan9@gmail.com?subject=Пройденный тест с названием "${name}"&body=Я прошел тест на ${score} баллов` // Шаблон для отправки сообщений
+    const handleSendResults = () => {
+        window.open(encodeURI(wrapperLink), '_blank');
+    };
+
 
     return (
         <Card title="Результаты Квиза" style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
@@ -97,8 +102,9 @@ const ResultsComponent = () => {
                 }}
             />
 
-            <Button type="primary" onClick={handleRestartQuiz} style={{ marginTop: 20 }}>
-                Пройти квиз заново
+
+            <Button type="primary" onClick={handleSendResults} style={{ marginTop: 20 }}>
+                Отправить результаты учителю
             </Button>
         </Card>
     );
