@@ -4,7 +4,11 @@ import TopicList from "../../../features/TopicList/TopicList";
 
 export const Conspects = () => {
     return (
-        <TopicList topics={Topics}/>
+        <div>
+            <TopicList topics={Topics}/>
+        </div>
+
+
     )
 }
 

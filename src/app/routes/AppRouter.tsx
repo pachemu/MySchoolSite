@@ -35,7 +35,7 @@ function AppRouter() {
 
             <Router>
                 <BaseLayout items={navigationLinksUnlogined}>
-                    <Suspense fallback="loading...">
+                    <Suspense fallback="Загрузка...">
                         <Routes>
                             {unLoginedUsers.map(route =>
                                 <Route key={route.path} path={route.path} element={route.component}/>)}

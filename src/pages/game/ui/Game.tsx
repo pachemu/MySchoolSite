@@ -1,9 +1,8 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import * as styles from './Game.module.scss'
 import {Button} from "antd";
 export const Game = () => {
     const embedRef = useRef(null); // Создаем реф для ссылки на контейнер с embed
-
     const toggleFullscreen = () => {
         const container = embedRef.current; // Получаем доступ к контейнеру
 
@@ -19,7 +18,7 @@ export const Game = () => {
     };
     return (
         <div>
-            <div id="embedContainer" ref={embedRef} style={{width: '600px', height: '400px', position: 'relative'}}>
+            <div id="embedContainer" ref={embedRef} style={{width: '80vw', height: '25vw'}}>
                 <embed
                     src="https://falstad.com/circuit/circuitjs.html" // Замените на путь к вашему документу
                     style={{width: '100%', height: '100%'}}

@@ -14,7 +14,7 @@ const QuizList = () => {
                 const data = await getQuizzes();
                 setQuizzes(data);
             } catch (error) {
-                console.error("Error fetching quizzes:", error);
+                console.error("Ошибка загрузки тестов", error);
             }
         };
 
@@ -25,10 +25,10 @@ const QuizList = () => {
         try {
             await deleteQuiz(quizId); // Предположим, что deleteQuiz отправляет запрос на сервер
             setQuizzes(quizzes.filter(quiz => quiz.id !== quizId)); // Удаляем квиз из состояния
-            message.success("Quiz deleted successfully");
+            message.success("Тест удален успешно!");
         } catch (error) {
-            console.error("Error deleting quiz:", error);
-            message.error("Failed to delete quiz");
+            console.error("Ошибка удаления теста", error);
+            message.error("Ошибка");
         }
     };
 
@@ -52,7 +52,7 @@ const QuizList = () => {
                         >
                             <List.Item.Meta
                                 title={<Link to={`${item.id}`}>{item.name}</Link>}
-                                description={`Created by ${item.author}`}
+                                description={`Тест создан: ${item.author}`}
                             />
                         </List.Item>
                     )}

@@ -3,6 +3,7 @@ import * as styles from './Topicitem.module.scss'
 import DownOutlined from '@ant-design/icons'
 import {Dropdown, Space} from 'antd';
 import {useOnClickOutside} from "../../../shared/modal/hooks/useClickOnOutside";
+import {Link} from "react-router-dom";
 
 interface SubTopic {
     url: string;
@@ -59,9 +60,9 @@ const TopicItem: React.FC<TopicItemProps> = ({topic, className = styles.Topic}) 
                     </div>
                 ) : (
                     <div>
-                        <a href={topic.url} target="_blank" rel="noopener noreferrer">
+                        <Link to={`${topic.name}`}>
                             {topic.name}
-                        </a>
+                        </Link>
                     </div>
                 )}
             </div>

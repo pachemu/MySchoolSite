@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build" : "webpack --env port=7777 mode=development api=https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes",
+    "build": "webpack --env port=7777 mode=development api=https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes",
     "build.dev": "webpack  --env mode=development port=1234",
     "build.prod": "webpack --env mode=production port=1111",
     "check": "webpack serve --env mode=production analyzer=True",
@@ -11,7 +11,7 @@
     "build.dekstop": "webpack serve --env mode=development port=1234 --env platform=dekstop",
     "typecheck": "tsc",
     "start": "webpack serve --env port=7777 mode=development api=https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes",
-    "start.prod" : "webpack serve --env port=7777 mode=production api=https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes"
+    "start.prod": "webpack serve --env port=7777 mode=production api=https://backend-mjpau96wy-debchiks-projects.vercel.app/quizzes"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "@swc/types": "^0.1.12",
     "@types/babel__core": "^7.20.5",
     "@types/react": "^18.3.3",
+    "cheerio": "^1.0.0",
     "express": "^4.19.2",
     "node-sass": "^9.0.0",
     "normalize.css": "^8.0.1",

@@ -49,12 +49,12 @@ const QuizForm = () => {
 
         try {
             await axios.post(`${API_URL}`, quizData);
-            message.success('Квиз успешно создан!');
+            message.success('Тест успешно создан!');
             setQuizName('');
             setAuthor('');
             setQuestions([{ id: 1, text: '', type: 'radio', options: ['', '', '', ''], correctAnswer: '' }]);
         } catch (error) {
-            message.error('Ошибка при создании квиза.');
+            message.error('Ошибка при создании теста.');
             console.error(error);
         }
     };
@@ -62,7 +62,7 @@ const QuizForm = () => {
 
     return (
         <Form layout="vertical" onFinish={handleSubmit}>
-            <Form.Item label="Название квиза" required>
+            <Form.Item label="Название теста" required>
                 <Input value={quizName} onChange={(e) => setQuizName(e.target.value)} />
             </Form.Item>
             <Form.Item label="Автор" required>
@@ -106,7 +106,7 @@ const QuizForm = () => {
             </Form.Item>
             <Form.Item>
                 <Button type="primary" htmlType="submit">
-                    Создать Квиз
+                    Создать Тест
                 </Button>
             </Form.Item>
         </Form>

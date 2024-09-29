@@ -29,21 +29,3 @@ export const navigationLinksUnlogined = navigationLinks.concat([
         link: '/login',
     }
 ])
-
-export const contactsData = [
-    {
-        name: "Telegram",
-        url: "https://t.me/deb4ic",
-        ico: Telegram,
-    },
-    {
-        name: 'Vkontakte',
-        url: "https://vk.com/deb4ick",
-        ico: VK,
-    },
-    {
-        name: "Gmail",
-        url: "mailto:ooshkan9@gmail.com?subject=Hello&body=I would like to discuss something.",
-        ico: Gmail,
-    }
-]

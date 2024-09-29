@@ -2,9 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Progress, Button, List, Card, Typography, Row, Col } from 'antd';
 import { RootState } from '../../../app/store/StoreProvider';
-import { startQuiz } from '../../../app/store/reducers/quiz/quizSlice';
-import {getQuizzes} from "../../quiz/api";
-import {Link} from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -39,9 +36,6 @@ const ResultsComponent = () => {
         }
     };
 
-    const handleRestartQuiz = () => {
-        dispatch(startQuiz());
-    };
     const wrapperLink = `mailto:ooshkan9@gmail.com?subject=Пройденный тест с названием "${name}"&body=Я прошел тест на ${score} баллов` // Шаблон для отправки сообщений
     const handleSendResults = () => {
         window.open(encodeURI(wrapperLink), '_blank');

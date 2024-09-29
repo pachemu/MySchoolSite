@@ -32,7 +32,7 @@ export const BaseLayout = ({children, items}: LayoutProps) => {
                             <Menu.Item key={link.name} onClick={() => navigate(link.link)}>{link.name}</Menu.Item>)
                     }
                     {auth && (
-                        <Menu.Item onClick={logout}>Logout</Menu.Item>
+                        <Menu.Item onClick={logout}>Выйти из учетной записи</Menu.Item>
                     )}
                 </Menu>
             </Sider>
@@ -51,7 +51,7 @@ export const BaseLayout = ({children, items}: LayoutProps) => {
                     </div>
                 </Content>
                 <Footer style={{textAlign: 'center'}}>
-                    Deb Kofe ©{new Date().getFullYear()} Created by Deb Koff UED
+                    Deb Kofe ©{new Date().getFullYear()} Создан Deb Kofe IDA
                 </Footer>
             </Layout>
         </Layout>
