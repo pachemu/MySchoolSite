@@ -29,6 +29,7 @@ const QuizComponent = () => {
     }
 
     if (error) {
+        console.log(error)
         return <p>Error: {typeof error === 'string' ? error : JSON.stringify(error)}</p>;
     }
 

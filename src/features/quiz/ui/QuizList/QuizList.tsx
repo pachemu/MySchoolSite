@@ -1,6 +1,6 @@
 import { Card, List, Button, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { getQuizzes, deleteQuiz } from "../../api"; // Предположим, что deleteQuiz также доступен в API
+import { getQuizzes, deleteQuiz } from "../../api"; // deleteQuiz также доступен в API
 import { Link } from "react-router-dom";
 import {useTypedSelector} from "../../../user/model/useTypedSelector";
 
@@ -23,7 +23,7 @@ const QuizList = () => {
 
     const handleDelete = async (quizId) => {
         try {
-            await deleteQuiz(quizId); // Предположим, что deleteQuiz отправляет запрос на сервер
+            await deleteQuiz(quizId); //  deleteQuiz отправляет запрос на сервер
             setQuizzes(quizzes.filter(quiz => quiz.id !== quizId)); // Удаляем квиз из состояния
             message.success("Тест удален успешно!");
         } catch (error) {
