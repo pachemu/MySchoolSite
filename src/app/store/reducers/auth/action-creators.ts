@@ -24,7 +24,7 @@ export const AuthActionCreators = {
 
                 setTimeout(async () => {
                     // Здесь добавляем проверку на клиентской стороне
-                    if (username === "Дэб" && password === "Dab") {
+                    if (username === "123" && password === "123") {
                         localStorage.setItem('auth', "true");
                         localStorage.setItem('username', username);
                         dispatch(AuthActionCreators.setIsAuth(true));

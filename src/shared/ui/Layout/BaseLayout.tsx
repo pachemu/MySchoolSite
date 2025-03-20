@@ -3,6 +3,7 @@ import {Layout, Menu, theme} from "antd";
 import {useNavigate} from 'react-router-dom'
 import {useTypedSelector} from "../../../features/user/model/useTypedSelector";
 import {useActions} from "../../../app/store/reducers/auth/hooks/useActions";
+import * as styles from './Layout.module.scss'
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -32,7 +33,7 @@ export const BaseLayout = ({children, items}: LayoutProps) => {
                             <Menu.Item key={link.name} onClick={() => navigate(link.link)}>{link.name}</Menu.Item>)
                     }
                     {auth && (
-                        <Menu.Item onClick={logout}>Выйти из учетной записи</Menu.Item>
+                        <Menu.Item className={''} onClick={logout}>Выйти из учетной записи</Menu.Item>
                     )}
                 </Menu>
             </Sider>
@@ -51,7 +52,7 @@ export const BaseLayout = ({children, items}: LayoutProps) => {
                     </div>
                 </Content>
                 <Footer style={{textAlign: 'center'}}>
-                    Deb Kofe ©{new Date().getFullYear()} Создан Deb Kofe IDA
+                    Deb Kofe ©{new Date().getFullYear()} Создан "Ионин Д.А"
                 </Footer>
             </Layout>
         </Layout>

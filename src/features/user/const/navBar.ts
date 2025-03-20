@@ -17,10 +17,7 @@ export const navigationLinks = [
     },
 ]
 export const navigationLinksTeacher = navigationLinks.concat([
-    {
-        name: "Создать тест",
-        link: '/create/quiz',
-    }
+
 ])
 
 export const navigationLinksUnlogined = navigationLinks.concat([
