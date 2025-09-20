@@ -12,9 +12,11 @@ const QuizPage: FC = () => {
         <div>
             <h1>Страница тестов</h1>
             <QuizList/>
-            {auth ? <Button className={styles.createTest} onClick={() => navigate("/create/quiz")}>
-                Создать тест
-            </Button> : <div></div>}
+            {auth ?
+                <Button className={styles.createTest} onClick={() => navigate("/create/quiz")}>
+                    Создать тест
+                </Button>
+                : <div></div>}
         </div>
     );
 };
