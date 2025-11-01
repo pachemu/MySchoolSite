@@ -23,7 +23,7 @@ function AppRouter() {
         auth ?
             <BrowserRouter>
                 <BaseLayout items={navigationLinksTeacher}>
-                    <Suspense fallback={'loading'}>
+                    <Suspense fallback={'Загрузка...'}>
                         <Routes>
                             {teacherRoutes.map(route =>
                                 <Route key={route.path} path={route.path} element={route.component}/>)}

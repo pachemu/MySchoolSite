@@ -22,7 +22,7 @@ export const navigationLinksTeacher = navigationLinks.concat([
 
 export const navigationLinksUnlogined = navigationLinks.concat([
     {
-        name: 'Логин',
+        name: 'Авторизоваться',
         link: '/login',
     }
 ])

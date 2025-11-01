@@ -2,25 +2,24 @@ import React, {useRef, useState} from 'react'
 import * as styles from './Game.module.scss'
 import {Button} from "antd";
 export const Game = () => {
-    const embedRef = useRef(null); // Создаем реф для ссылки на контейнер с embed
+    const embedRef = useRef(null);
     const toggleFullscreen = () => {
-        const container = embedRef.current; // Получаем доступ к контейнеру
+        const container = embedRef.current;
 
         if (!document.fullscreenElement) {
-            // Если не в полноэкранном режиме, запрашиваем переход
             container.requestFullscreen().catch((err) => {
                 console.error(`Error attempting to enable full-screen mode: ${err.message}`);
             });
         } else {
-            // Если уже в полноэкранном режиме, выходим из него
             document.exitFullscreen();
         }
     };
     return (
         <div>
             <div id="embedContainer" ref={embedRef} style={{width: '80vw', height: '25vw'}}>
-                <embed
-                    src="https://falstad.com/circuit/circuitjs.html" // Замените на путь к вашему документу
+                <iframe
+                    loading='lazy'
+                    src="https://falstad.com/circuit/circuitjs.html"
                     style={{width: '100%', height: '100%'}}
                 />
             </div>

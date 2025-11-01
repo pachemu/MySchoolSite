@@ -6,14 +6,18 @@ import Quiz from "../../pages/Quiz/LazyQuizPage";
 import QuizComponent from "../../features/quiz/ui/QuizComponent/QuizComponent";
 import QuizForm from "../../features/quiz/ui/QuizForm/QuizForm";
 import Conspect from "../../pages/conspect/LazyConspect";
+import Main from "../../pages/main/Main";
+import {Navigate} from "react-router-dom";
 
 export interface IRoute {
     path: string;
     component: React.ReactNode;
     exact?: boolean;
-    logout?: ()=> {}
+    logout?: () => {}
 }
+
 export enum RouteNames {
+    BASE = '',
     LOGIN = '/login',
     CONSPECTS = '/conspects',
     GAME = '/game',
@@ -22,12 +26,14 @@ export enum RouteNames {
     QUIZ_BY_ID = '/quiz/:quizId',
     CONSPECT_BY_ID = '/conspects/:conspectId',
 }
+
 const baseRoutes: IRoute[] = [
     {path: RouteNames.CONSPECTS, component: <Conspects/>, exact: true},
     {path: RouteNames.GAME, component: <Game/>, exact: true},
     {path: RouteNames.QUIZ, component: <Quiz/>},
     {path: RouteNames.QUIZ_BY_ID, component: <QuizComponent/>},
-    {path: RouteNames.CONSPECT_BY_ID, component: <Conspect/>}
+    {path: RouteNames.CONSPECT_BY_ID, component: <Conspect/>},
+    {path: RouteNames.BASE, component: <Navigate to={"/conspects"} />}
 ]
 
 

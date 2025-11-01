@@ -6,7 +6,7 @@ import {useTypedSelector} from "../../../user/model/useTypedSelector";
 
 const QuizList = () => {
     const [quizzes, setQuizzes] = useState([]);
-    const { auth } = useTypedSelector(state => state.authReducer); // Проверяем авторизацию пользователя
+    const { auth } = useTypedSelector(state => state.authReducer);
 
     useEffect(() => {
         const fetchQuizzes = async () => {
@@ -24,7 +24,7 @@ const QuizList = () => {
     const handleDelete = async (quizId) => {
         try {
             await deleteQuiz(quizId); //  deleteQuiz отправляет запрос на сервер
-            setQuizzes(quizzes.filter(quiz => quiz.id !== quizId)); // Удаляем квиз из состояния
+            setQuizzes(quizzes.filter(quiz => quiz.id !== quizId));
             message.success("Тест удален успешно!");
         } catch (error) {
             console.error("Ошибка удаления теста", error);
@@ -38,9 +38,11 @@ const QuizList = () => {
                 <List
                     pagination={{ position: 'both', align: 'center' }}
                     dataSource={quizzes}
+                    locale={{'emptyText': 'Отсутствуют тесты'}}
                     renderItem={(item) => (
                         <List.Item
-                            actions={auth ? [ // Отображаем кнопку только для авторизованных пользователей
+                            key={item.id}
+                            actions={auth ? [
                                 <Button
                                     type="primary"
                                     danger
@@ -51,6 +53,7 @@ const QuizList = () => {
                             ] : []}
                         >
                             <List.Item.Meta
+                                key={item.id+1}
                                 title={<Link to={`${item.id}`}>{item.name}</Link>}
                                 description={`Тест создан: ${item.author}`}
                             />
