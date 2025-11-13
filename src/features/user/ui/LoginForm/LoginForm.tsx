@@ -61,12 +61,12 @@ export const LoginForm = (className) => {
                     valuePropName="checked"
                     wrapperCol={{offset: 8, span: 16}}
                 >
-                    <Checkbox>Remember me</Checkbox>
+                    <Checkbox>Запомнить меня</Checkbox>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{offset: 8, span: 16}}>
                     <Button type="primary" htmlType="submit" loading={isLoading}>
-                        Submit
+                        Войти
                     </Button>
                 </Form.Item>
             </Form>

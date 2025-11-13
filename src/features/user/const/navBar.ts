@@ -4,6 +4,10 @@ import Gmail from '../assets/SocialData/Gmail.png'
 
 export const navigationLinks = [
     {
+        name: 'Главная страница',
+        link: '/',
+    },
+    {
         name: "Конспекты",
         link: '/conspects',
     },

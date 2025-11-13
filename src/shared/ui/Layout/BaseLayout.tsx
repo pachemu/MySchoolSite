@@ -34,7 +34,7 @@ export const BaseLayout = ({children, items}: LayoutProps) => {
             key: `item-${i}`,
             label: item.name,
             onClick: () => item.link && navigate(item.link),
-            id: `${item.name}`,
+            id:  `${item.name.split(' ')[0]}`,
         };
     });
     const loginItems = [
@@ -64,6 +64,12 @@ export const BaseLayout = ({children, items}: LayoutProps) => {
     const [{steps, run}, setState] = useState<State>({
         run: true,
         steps: [
+            {
+                target: '#Главная',
+                content: 'Страница с информацией о сайте',
+                placement: 'bottom-start',
+                locale: baseLocale
+            },
             {
                 target: '#Конспекты',
                 content: 'Все тезисы и правила по физике!',

@@ -6,6 +6,29 @@ import { RootState } from '../../../app/store/StoreProvider';
 const { Title, Text } = Typography;
 
 const ResultsComponent = () => {
+    // Функция для сравнения ответов без учета порядка
+    const checkAnswer = (userAnswer, correctAnswer) => {
+        if (Array.isArray(userAnswer) && Array.isArray(correctAnswer)) {
+            const userSet = new Set(userAnswer.map(item => item.trim()));
+            const correctSet = new Set(correctAnswer.map(item => item.trim()));
+            return userSet.size === correctSet.size &&
+                [...userSet].every(item => correctSet.has(item));
+        }
+
+        if (typeof userAnswer === 'string' && typeof correctAnswer === 'string') {
+            const userList = userAnswer.split(',').map(item => item.trim());
+            const correctList = correctAnswer.split(',').map(item => item.trim());
+
+            const userSet = new Set(userList);
+            const correctSet = new Set(correctList);
+
+            return userSet.size === correctSet.size &&
+                [...userSet].every(item => correctSet.has(item));
+        }
+
+        return userAnswer === correctAnswer;
+    };
+
     const dispatch = useDispatch();
     const { questions, answers, name} = useSelector((state: RootState) => state.quiz);
     const totalQuestions = questions.length;
@@ -16,9 +39,9 @@ const ResultsComponent = () => {
 
         const userAnswer = Array.isArray(answers[question.id])
             ? (answers[question.id] as string[]).join(', ')
-            : answers[question.id] || '';  // Получаем ответ пользователя из глобального состояния
+            : answers[question.id] || '';
 
-        return correctAnswer === userAnswer;
+        return checkAnswer(userAnswer, question.correctAnswer);
     });
 
     const score = correctAnswers.length;
@@ -36,7 +59,7 @@ const ResultsComponent = () => {
         }
     };
 
-    const wrapperLink = `mailto:ooshkan9@gmail.com?subject=Пройденный тест с названием "${name}"&body=Я прошел тест на ${score} баллов` // Шаблон для отправки сообщений
+    const wrapperLink = `mailto:ooshkan9@gmail.com?subject=Пройденный тест с названием "${name}"&body=Я прошел тест на ${score} баллов`
     const handleSendResults = () => {
         window.open(encodeURI(wrapperLink), '_blank');
     };
@@ -70,7 +93,7 @@ const ResultsComponent = () => {
                         ? (answers[question.id] as string[]).join(', ')
                         : answers[question.id] || '';  // Получаем ответ пользователя из глобального состояния
 
-                    const isCorrect = correctAnswer === userAnswer;
+                    const isCorrect = checkAnswer(userAnswer, question.correctAnswer);
                     return (
                         <List.Item key={question.text} style={{ padding: '16px 24px' }}>
                             <Row style={{ width: '100%' }}>
