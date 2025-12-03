@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Select, Card, Space, message } from 'antd';
+import { Form, Input, Button, Select, Card, Space, message, Typography } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 const { Option } = Select;
+const { Text } = Typography;
 
 const QuizForm = () => {
     const API_URL = __URL__;
@@ -59,7 +60,6 @@ const QuizForm = () => {
         }
     };
 
-
     return (
         <Form layout="vertical" onFinish={handleSubmit}>
             <Form.Item label="Название теста" required>
@@ -89,8 +89,20 @@ const QuizForm = () => {
                             ))}
                         </>
                     )}
-                    <Form.Item label="Правильный ответ" required>
-                        <Input value={question.correctAnswer} onChange={(e) => handleQuestionChange(e.target.value, index, 'correctAnswer')} />
+                    <Form.Item
+                        label="Правильный ответ"
+                        required
+                        extra={question.type === 'checkbox' ? (
+                            <Text type="secondary" style={{ fontSize: '12px' }}>
+                                Укажите ответы через запятую
+                            </Text>
+                        ) : null}
+                    >
+                        <Input
+                            value={question.correctAnswer}
+                            onChange={(e) => handleQuestionChange(e.target.value, index, 'correctAnswer')}
+                            placeholder={question.type === 'checkbox' ? 'Например: Вариант 1, Вариант 3' : ''}
+                        />
                     </Form.Item>
                     {questions.length > 1 && (
                         <Button danger={true} onClick={() => handleRemoveQuestion(index)} icon={<MinusCircleOutlined />}>

@@ -1,5 +1,5 @@
-import * as styles from './QuizComponent.module.scss'
 import React, {useState, useEffect} from 'react';
+import * as styles from './QuizComponent.module.scss'
 import {useParams} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {Card, Button, Radio, Input, Checkbox, Form} from 'antd';
@@ -8,44 +8,42 @@ import {fetchQuizById, questionAnswered, startQuiz} from '../../../../app/store/
 import ResultsComponent from '../../../result/ui/ResultComponent';
 
 const QuizComponent = () => {
-    const {quizId} = useParams(); // Получаем ID квиза из URL
+    const {quizId} = useParams();
     const dispatch = useDispatch<AppDispatch>();
-    const [quizStarted, setQuizStarted] = useState(false); // Состояние для отображения квиза
+    const [quizStarted, setQuizStarted] = useState(false);
 
     const {questions, currentQuestionIndex, loading, error} = useSelector((state: RootState) => state.quiz);
+
+    // создаём form instance
+    const [form] = Form.useForm();
+
     useEffect(() => {
         if (quizId) {
-            dispatch(fetchQuizById(quizId)); // Загружаем данные квиза по ID
+            dispatch(fetchQuizById(quizId));
         }
     }, [quizId, dispatch]);
 
-    // Проверка завершения квиза
+    // Сбрасываем поле answer при смене вопроса
+    useEffect(() => {
+        // если форма создана — сбрасываем значение поля answer
+        form.resetFields?.(['answer']); // очистит поле answer
+        // альтернативно: form.setFieldsValue({ answer: undefined });
+    }, [currentQuestionIndex, form]);
+
+    // ... (загрузка/ошибки/старт как у тебя)
+
     if (quizStarted && currentQuestionIndex >= questions.length) {
         return <ResultsComponent/>;
     }
 
-    // Обработка загрузки и ошибок
-    if (loading) {
-        return <p>Загрузка...</p>;
-    }
+    if (loading) return <p>Загрузка...</p>;
+    if (error) return <p>Error: {typeof error === 'string' ? error : JSON.stringify(error)}</p>;
 
-    if (error) {
-        console.log(error)
-        return <p>Error: {typeof error === 'string' ? error : JSON.stringify(error)}</p>;
-    }
-
-    // Рендеринг компонента "Loading" до начала квиза или при загрузке вопросов
     if (!quizStarted || !questions || questions.length === 0) {
         return (
             <div className={styles.startQuiz}>
                 {!quizStarted ? (
-                    <Button
-                        type="primary"
-                        size={"large"}
-                        onClick={() => {
-                        dispatch(startQuiz());
-                        setQuizStarted(true);
-                    }}>
+                    <Button type="primary" size={"large"} onClick={() => { dispatch(startQuiz()); setQuizStarted(true); }}>
                         Начать Тест
                     </Button>
                 ) : (
@@ -59,13 +57,19 @@ const QuizComponent = () => {
 
     const handleAnswerSubmit = (value: string | string[]) => {
         dispatch(questionAnswered({questionId: currentQuestion.id, answer: value}));
+        // после отправки можно перейти на следующий вопрос — тогда resetFields сработает в useEffect
     };
 
     return (
         <Card title={`Вопрос ${currentQuestionIndex + 1}`}>
             <p>{currentQuestion.text}</p>
 
-            <Form onFinish={(values) => handleAnswerSubmit(values.answer)}>
+            {/* добавил form={form} и key для принудительного перемонтирования */}
+            <Form
+                form={form}
+                key={`quiz-form-${currentQuestion.id}`}   // ключ по id вопроса — форс ремонт
+                onFinish={(values) => handleAnswerSubmit(values.answer)}
+            >
                 {currentQuestion.type === 'radio' && (
                     <Form.Item name="answer" rules={[{required: true, message: 'Пожалуйста, выберите ответ!'}]}>
                         <Radio.Group
@@ -77,15 +81,21 @@ const QuizComponent = () => {
                 )}
 
                 {currentQuestion.type === 'input' && (
-                    <Form.Item name="answer" rules={[{required: true, message: 'Пожалуйста, введите ваш ответ!'}]}>
-                        <Input/>
+                    <Form.Item
+                        name="answer"
+                        rules={[{required: true, message: 'Пожалуйста, введите ваш ответ!'}]}
+                        initialValue={undefined} // явно пустая начальная value
+                    >
+                        <Input />
                     </Form.Item>
                 )}
 
                 {currentQuestion.type === 'checkbox' && (
-                    <Form.Item name="answer"
-                               rules={[{required: true, message: 'Пожалуйста, выберите хотя бы один вариант!'}]}>
-                        <Checkbox.Group options={currentQuestion.options}/>
+                    <Form.Item
+                        name="answer"
+                        rules={[{required: true, message: 'Пожалуйста, выберите хотя бы один вариант!'}]}
+                    >
+                        <Checkbox.Group options={currentQuestion.options} />
                     </Form.Item>
                 )}
 
